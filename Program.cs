@@ -1,3 +1,5 @@
+using MemoApp.Repository;
+using MemoApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,10 @@ builder.Services.AddSwaggerGen();
 // Registering our repositories
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddScoped<IMemoService, MemoService>();
+builder.Services.AddScoped<IMemoRepository, MemoRepository>();
+
+//Register the database context
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("MemosDb")));
 var app = builder.Build();
