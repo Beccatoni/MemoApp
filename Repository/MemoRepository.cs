@@ -7,7 +7,7 @@ public interface IMemoRepository
 {
   IEnumerable<Memo> GetAllMemos();
   // Memo? GetMemoById(int id);
-  // void AddMemo(Memo memo);
+  void AddMemo(Memo memo);
   // void UpdateMemo(Memo memo, int id);
   // void CreateMemo(Memo memo);
   // void DeleteMemo(int id);
@@ -23,5 +23,10 @@ public class MemoRepository : IMemoRepository
   }
   public IEnumerable<Memo> GetAllMemos() => _context.Memos.ToList();
 
+  public void AddMemo(Memo memo)
+  {
+    _context.Memos.Add(memo);
+    _context.SaveChanges();
+  }
 
 }

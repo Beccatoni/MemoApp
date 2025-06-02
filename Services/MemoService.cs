@@ -1,4 +1,5 @@
 using MemoApp.DTOs;
+using MemoApp.Models;
 using MemoApp.Repository;
 
 namespace MemoApp.Services;
@@ -7,7 +8,7 @@ public interface IMemoService
 {
     IEnumerable<MemoDto> GetAllMemos();
     // MemoDto? GetMemoById(int id);
-    // void AddMemo(MemoDto memo);
+    void AddMemo(CreateMemoDto memo);
     // void UpdateMemo(MemoDto memo, int id);
     // void CreateMemo(MemoDto memo);
     // void DeleteMemo(int id);
@@ -33,5 +34,17 @@ public class MemoService : IMemoService
             CreatedAt = memo.CreatedAt,
             UpdatedAt = memo.UpdatedAt
         }).ToList();
+    }
+
+    public void AddMemo(CreateMemoDto newMemo)
+    {
+        var memo = new Memo
+        {
+            Title = newMemo.Title,
+            Content = newMemo.Content,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+        _repository.AddMemo(memo);
     }
 }

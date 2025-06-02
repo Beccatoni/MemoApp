@@ -20,4 +20,15 @@ public class MemoController: ControllerBase
     {
         return _memoService.GetAllMemos();
     }
+
+    [HttpPost]
+    public IActionResult CreateMemo([FromBody] CreateMemoDto newMemo)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        _memoService.AddMemo(newMemo);
+        return CreatedAtAction(nameof(GetMemos), null);
+    }
 }
