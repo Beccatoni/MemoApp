@@ -31,4 +31,20 @@ public class MemoController: ControllerBase
         _memoService.AddMemo(newMemo);
         return CreatedAtAction(nameof(GetMemos), null);
     }
+
+    [HttpPatch("{id:int}")]
+    public IActionResult UpdateMemo(int id, [FromBody] UpdateMemoDto memo)
+    {
+        if (string.IsNullOrWhiteSpace(memo.Title) && string.IsNullOrWhiteSpace(memo.Content))
+        {
+            return BadRequest("At least one field must be updated.");
+        }
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        _memoService.UpdateMemo(memo, id);
+        return NoContent();
+      
+    }
 }

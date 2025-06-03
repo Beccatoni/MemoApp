@@ -9,8 +9,7 @@ public interface IMemoService
     IEnumerable<MemoDto> GetAllMemos();
     // MemoDto? GetMemoById(int id);
     void AddMemo(CreateMemoDto memo);
-    // void UpdateMemo(MemoDto memo, int id);
-    // void CreateMemo(MemoDto memo);
+    void UpdateMemo(UpdateMemoDto memo, int id);
     // void DeleteMemo(int id);
     // void SaveChages();
 }
@@ -46,5 +45,22 @@ public class MemoService : IMemoService
             UpdatedAt = DateTime.UtcNow
         };
         _repository.AddMemo(memo);
+    }
+
+    public void UpdateMemo(UpdateMemoDto memo, int id)
+    {
+        if (memo == null)
+        {
+            throw new ArgumentNullException(nameof(memo), "The memo update data cannot be null.");
+        }
+
+        try
+        {
+            _repository.UpdateMemo(memo, id);
+        }
+        catch (Exception e)
+        {
+            throw new KeyNotFoundException($"Failed to update memo with ID {id}: {e.Message}", e);
+        }
     }
 }

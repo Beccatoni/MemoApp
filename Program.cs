@@ -34,6 +34,8 @@ if (app.Environment.IsDevelopment())
 
 }
 
+app.UseMiddleware<MemoApp.Middleware.ExceptionHandlingMiddleware>();
+
 app.UseHttpsRedirection();
 
 

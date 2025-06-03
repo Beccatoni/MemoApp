@@ -1,3 +1,4 @@
+using MemoApp.DTOs;
 using MemoApp.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +9,7 @@ public interface IMemoRepository
   IEnumerable<Memo> GetAllMemos();
   // Memo? GetMemoById(int id);
   void AddMemo(Memo memo);
-  // void UpdateMemo(Memo memo, int id);
-  // void CreateMemo(Memo memo);
+  void UpdateMemo(UpdateMemoDto memo, int id);
   // void DeleteMemo(int id);
   // void SaveChages();
 }
@@ -27,6 +27,29 @@ public class MemoRepository : IMemoRepository
   {
     _context.Memos.Add(memo);
     _context.SaveChanges();
+  }
+
+  public void UpdateMemo(UpdateMemoDto memo, int id)
+  {
+    var availableMemo = _context.Memos.FirstOrDefault(m => m.Id == id);
+    if (availableMemo == null)
+    {
+      throw new Exception("Memo not found");
+    }
+
+    if (memo.Title != null)
+    {
+      availableMemo.Title = memo.Title;
+    }
+
+    if (memo.Content != null)
+    {
+      availableMemo.Content = memo.Content;
+    }
+    
+    availableMemo.UpdatedAt = DateTime.UtcNow; 
+    _context.SaveChanges();
+    
   }
 
 }
