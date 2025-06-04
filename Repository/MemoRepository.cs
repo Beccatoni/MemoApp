@@ -1,6 +1,5 @@
 using MemoApp.DTOs;
 using MemoApp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace MemoApp.Repository;
 

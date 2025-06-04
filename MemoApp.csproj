@@ -12,10 +12,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="MemoAppTests\obj\MemoAppTests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="MemoAppTests\obj\project.assets.json" />
   </ItemGroup>
 
 </Project>
