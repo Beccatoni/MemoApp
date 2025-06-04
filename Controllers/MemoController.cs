@@ -16,9 +16,10 @@ public class MemoController: ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<MemoDto> GetMemos()
+    public ActionResult<IEnumerable<MemoDto>> GetMemos()
     {
-        return _memoService.GetAllMemos();
+        var memos = _memoService.GetAllMemos();
+        return Ok(memos);
     }
 
     [HttpPost]
