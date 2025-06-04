@@ -48,4 +48,11 @@ public class MemoController: ControllerBase
         return NoContent();
       
     }
+    
+    [HttpDelete]
+    public IActionResult DeleteMemo(int id)
+    {
+        _memoService.DeleteMemo(id);
+        return NoContent();
+    }
 }

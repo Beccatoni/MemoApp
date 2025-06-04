@@ -6,11 +6,11 @@ namespace MemoApp.Repository;
 public interface IMemoRepository
 {
   IEnumerable<Memo> GetAllMemos();
-  // Memo? GetMemoById(int id);
+  Memo? GetMemoById(int id);
   void AddMemo(Memo memo);
   void UpdateMemo(UpdateMemoDto memo, int id);
-  // void DeleteMemo(int id);
-  // void SaveChages();
+  void DeleteMemo(int id);
+  
 }
 public class MemoRepository : IMemoRepository
 {
@@ -27,6 +27,8 @@ public class MemoRepository : IMemoRepository
     _context.Memos.Add(memo);
     _context.SaveChanges();
   }
+  
+  public Memo? GetMemoById(int id) => _context.Memos.FirstOrDefault(m => m.Id == id);
 
   public void UpdateMemo(UpdateMemoDto memo, int id)
   {
@@ -49,6 +51,16 @@ public class MemoRepository : IMemoRepository
     availableMemo.UpdatedAt = DateTime.UtcNow; 
     _context.SaveChanges();
     
+  }
+
+  public void DeleteMemo(int id)
+  {
+    var availableMemo = _context.Memos.FirstOrDefault(m => m.Id == id);
+    if (availableMemo == null)
+    {
+      throw new Exception("Memo not found");
+    }
+    _context.Memos.Remove(availableMemo);
   }
 
 }

@@ -10,7 +10,7 @@ public interface IMemoService
     // MemoDto? GetMemoById(int id);
     void AddMemo(CreateMemoDto memo);
     void UpdateMemo(UpdateMemoDto memo, int id);
-    // void DeleteMemo(int id);
+    void DeleteMemo(int id);
     // void SaveChages();
 }
 public class MemoService : IMemoService
@@ -62,5 +62,15 @@ public class MemoService : IMemoService
         {
             throw new KeyNotFoundException($"Failed to update memo with ID {id}: {e.Message}", e);
         }
+    }
+
+    public void DeleteMemo(int id)
+    {
+        var memos = _repository.GetAllMemos();
+        if (!memos.Any(m => m.Id == id))
+        {
+            throw new KeyNotFoundException("No memo found with the given ID.");
+        }
+        _repository.DeleteMemo(id);
     }
 }
